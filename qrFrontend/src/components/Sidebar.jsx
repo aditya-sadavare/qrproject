@@ -21,7 +21,7 @@ const Sidebar = () => {
   const fetchData = () => {
     let token = Cookies.get("authorization");
     axios
-      .post("https://dynamic-qr-server.vercel.app/home", { token })
+      .post(`${process.env.REACT_APP_BACKEND_URL}/home`, { token })
       .then((res) => {
         setItems(res.data);
         toast.success("QR Data Fetched");
