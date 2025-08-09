@@ -1,0 +1,30 @@
+services:
+  frontend:
+    build:
+      context: ./qrFrontend
+    container_name: frontend
+    ports:
+      - "3000:80"
+
+  backend:
+    build:
+      context: ./qrServer
+    container_name: backend
+    ports:
+      - "4000:3000"
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/qrapp
+    depends_on:
+      - mongo
+
+  mongo:
+    image: mongo
+    container_name: mongodb
+    volumes:
+      - mongoData:/data/db
+    ports:
+      - "27017:27017"
+
+volumes:
+  mongoData:
+
