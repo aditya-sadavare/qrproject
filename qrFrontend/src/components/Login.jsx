@@ -15,8 +15,8 @@ const Login = () => {
   function handleSubmit(e) {
     e.preventDefault();
     const url = isLogin
-      ? `${process.env.REACT_APP_BACKEND_URL}/login`
-      : `${process.env.REACT_APP_BACKEND_URL}/reg`;
+      ? `${import.meta.env.VITE_BACKEND_URL}/login`
+      : `${import.meta.env.VITE_BACKEND_URL}/reg`;
     const payload = isLogin ? { username, pass } : { username, pass, name };
 
     axios
