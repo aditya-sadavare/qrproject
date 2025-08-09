@@ -21,7 +21,7 @@ const Sidebar = () => {
   const fetchData = () => {
     let token = Cookies.get("authorization");
     axios
-      .post(`${process.env.REACT_APP_BACKEND_URL}/home`, { token })
+      .post(`${import.meta.env.VITE_BACKEND_URL}/home`, { token })
       .then((res) => {
         setItems(res.data);
         toast.success("QR Data Fetched");
