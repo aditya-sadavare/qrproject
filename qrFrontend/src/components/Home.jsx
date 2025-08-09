@@ -27,10 +27,10 @@ const Home = ({fetchData}) => {
   function handleSubmit(e) {
     e.preventDefault();
     axios
-      .post("https://dynamic-qr-server.vercel.app/addqr", { token, orgUrl })
+      .post(`${process.env.REACT_APP_BACKEND_URL}/addqr`, { token, orgUrl })
       .then((res) => {
         toast.info(res.data.msg);
-        setUrl(`https://dynamic-qr-server.vercel.app/readqr/${res.data.uid}`);
+        setUrl(`${process.env.REACT_APP_BACKEND_URL}/readqr/${res.data.uid}`);
         fetchData()
       })
       .catch((err) => {
