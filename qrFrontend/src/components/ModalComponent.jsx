@@ -22,7 +22,7 @@ const ModalComponent = ({ modalIsOpen, closeModal, item, fetchData }) => {
     const token = Cookie.get("authorization");
 
     try {
-      const response = await axios.put(`${process.env.REACT_APP_BACKEND_URL}/updateurl`, {
+      const response = await axios.put(`${import.meta.env.VITE_BACKEND_URL}/updateurl`, {
         id: item._id,
         newUrl,
         token,
