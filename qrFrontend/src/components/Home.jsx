@@ -27,10 +27,10 @@ const Home = ({fetchData}) => {
   function handleSubmit(e) {
     e.preventDefault();
     axios
-      .post(`${process.env.REACT_APP_BACKEND_URL}/addqr`, { token, orgUrl })
+      .post(`${import.meta.env.VITE_BACKEND_URL}/addqr`, { token, orgUrl })
       .then((res) => {
         toast.info(res.data.msg);
-        setUrl(`${process.env.REACT_APP_BACKEND_URL}/readqr/${res.data.uid}`);
+        setUrl(`${import.meta.env.VITE_BACKEND_URL}/readqr/${res.data.uid}`);
         fetchData()
       })
       .catch((err) => {
