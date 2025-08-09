@@ -11,6 +11,7 @@ const Login = () => {
   const [isLogin, setIsLogin] = useState(true);
 
   const navigate = useNavigate();
+  console.log("helloooooo");
 
   function handleSubmit(e) {
     e.preventDefault();
