@@ -2,26 +2,36 @@ pipeline {
     agent { label 'agent1' }
 
     stages {
-        stage('Pull') {
+        stage('Pull Code') {
             steps {
                 git url: 'https://github.com/aditya-sadavare/qrproject', branch: 'main'
-                echo 'pulled'
+                echo 'Pulled latest code from GitHub'
             }
         }
 
-        stage('Stop Containers') {
+        stage('Build Changed Services') {
             steps {
-                sh 'docker compose down || true'
+                script {
+                    def changedFiles = sh(script: "git diff --name-only HEAD~1 HEAD", returnStdout: true).trim()
+
+                    if (changedFiles.contains("qrFrontend/")) {
+                        echo "Frontend code changed → rebuilding frontend"
+                        sh 'docker compose build frontend'
+                    } else {
+                        echo "No frontend changes → skipping rebuild"
+                    }
+
+                    if (changedFiles.contains("qrServer/")) {
+                        echo "Backend code changed → rebuilding backend"
+                        sh 'docker compose build backend'
+                    } else {
+                        echo "No backend changes → skipping rebuild"
+                    }
+                }
             }
         }
 
-        stage('Build Images') {
-            steps {
-                sh 'docker compose build --no-cache --pull'
-            }
-        }
-
-        stage('Start Containers') {
+        stage('Deploy') {
             steps {
                 sh 'docker compose up -d'
             }
