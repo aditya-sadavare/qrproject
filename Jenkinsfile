@@ -8,7 +8,6 @@ pipeline {
             steps {
                 script {
                     pull('https://github.com/aditya-sadavare/qrproject', 'main')
-
                    def changedFiles = sh(script: "git diff --name-only HEAD~1 HEAD", returnStdout: true).trim()
 
                     // If empty, make sure to handle it:
