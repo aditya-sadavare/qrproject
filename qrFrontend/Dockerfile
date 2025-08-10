@@ -3,9 +3,9 @@ FROM node:18-slim AS builder
 
 WORKDIR /app
 
-# Install dependencies (cached unless package.json changes)
+# Install all deps (so vite is available)
 COPY package*.json ./
-RUN npm ci --only=production
+RUN npm ci
 
 # Copy source and build
 COPY . ./
@@ -14,11 +14,8 @@ RUN npm run build
 # Stage 2: Serve with Nginx
 FROM nginx:alpine
 
-# Copy built assets to Nginx
+# Copy built files only (no node_modules)
 COPY --from=builder /app/dist /usr/share/nginx/html
 
-# Expose port
 EXPOSE 80
-
-# Run Nginx
 CMD ["nginx", "-g", "daemon off;"]
