@@ -5,7 +5,7 @@ pipeline {
         stage('Pull Code') {
             steps {
                 git url: 'https://github.com/aditya-sadavare/qrproject', branch: 'main'
-                echo 'Pulled latest code from GitHub'
+                echo 'Pulled latest code from GitHub using webhook'
             }
         }
 
