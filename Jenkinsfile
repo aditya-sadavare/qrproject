@@ -2,34 +2,28 @@ pipeline {
     agent { label 'agent1' }
 
     stages {
-        stage('Pull Code') {
+        stage('Pull') {
             steps {
-                echo 'Pulling latest code from GitHub...'
-                sh 'git clone --branch main https://github.com/aditya-sadavare/qrproject .'
-                echo 'Code pulled successfully.'
+                git url: 'https://github.com/aditya-sadavare/qrproject', branch: 'main'
+                echo 'pulled'
             }
         }
 
         stage('Stop Containers') {
             steps {
-                echo 'Stopping and removing old containers...'
-                sh 'docker compose down'
+                sh 'docker compose down || true'
             }
         }
 
-        stage('Build Docker Images') {
+        stage('Build Images') {
             steps {
-                echo 'Building fresh Docker images...'
                 sh 'docker compose build --no-cache --pull'
-                echo 'Docker images built successfully.'
             }
         }
 
         stage('Start Containers') {
             steps {
-                echo 'Starting new containers...'
                 sh 'docker compose up -d'
-                echo 'Containers started successfully.'
             }
         }
     }
