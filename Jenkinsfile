@@ -1,9 +1,13 @@
+@Library("Shared") _
 pipeline {
     agent { label 'agent1' }
 
     stages {
         stage('Pull Code') {
             steps {
+                script{
+                    pull()
+                }
                 git url: 'https://github.com/aditya-sadavare/qrproject', branch: 'main'
                 echo 'Pulled latest code from GitHub using webhook'
             }
