@@ -2,22 +2,23 @@
 
 ## Overview
 
-This project demonstrates an automated CI/CD pipeline for a QR code management system using Docker, Jenkins, and GitHub Actions.
+This project demonstrates an automated CI/CD pipeline for a QR code management system using Docker, Jenkins, GitHub Actions, a Groovy Shared Library, webhooks, and multistage pipelines.
 
 ## Tech Stack
 
 - **Frontend**: React.js, Docker
 - **Backend**: Node.js, Express.js, Docker
 - **Database**: MongoDB, Docker
-- **CI/CD**: Jenkins, GitHub Actions, Docker Compose
+- **CI/CD**: Jenkins, GitHub Actions, Docker Compose, Groovy Shared Library, Webhooks, Multistage Pipelines (using multistage Dockerfile for optimized, smaller images)
 - **Version Control**: Git, GitHub
 - **OS**: Ubuntu
+- **Cloud Hosting**: AWS Free Tier (with 720 hours)
 
 ## Project Workflow
 
 1. **Code Push**: Developers push code changes to the GitHub repository.
-2. **CI Trigger**: GitHub Actions or Jenkins detects the push and triggers the CI pipeline.
-3. **Build**: The application is built using Docker, creating images for the frontend, backend, and MongoDB.
+2. **CI Trigger**: Webhooks from GitHub notify Jenkins or GitHub Actions to start the CI pipeline.
+3. **Build**: The application is built using Docker with multistage pipelines creating optimized images for frontend, backend, and MongoDB.
 4. **Deploy**: Docker Compose is used to deploy the application and database containers.
 
 ## Agent-Master Architecture
@@ -29,6 +30,18 @@ This project demonstrates an automated CI/CD pipeline for a QR code management s
 
 - **Network**: All containers (frontend, backend, MongoDB) are connected to a shared Docker network, allowing them to communicate with each other.
 - **Volumes**: Persistent storage is configured for MongoDB to retain data across container restarts.
+
+## Groovy Shared Library
+
+A Groovy Shared Library is used to modularize and reuse Jenkins pipeline code across multiple jobs, improving maintainability and consistency.
+
+## Dockerfile Optimization
+
+This project uses a multistage Dockerfile to significantly reduce the final image size by building and packaging the frontend and backend separately, then combining them efficiently.
+
+## Cloud Hosting
+
+The entire pipeline and application are hosted on AWS Free Tier, which has a usage limit of 720 hours, suitable for demo and testing purposes.
 
 ## Demo
 
