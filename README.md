@@ -11,7 +11,7 @@ This project demonstrates an automated CI/CD pipeline for a QR code management s
 - **Database**: MongoDB, Docker
 - **CI/CD**: Jenkins, GitHub Actions, Docker Compose
 - **Version Control**: Git, GitHub
-- **OS**: Kali Linux
+- **OS**: Ubuntu
 
 ## Project Workflow
 
