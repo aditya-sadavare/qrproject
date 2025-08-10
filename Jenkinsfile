@@ -7,8 +7,11 @@ pipeline {
         stage('Pipeline') {
             steps {
                 script {
-                    pull()
-                    build()
+                    pull('https://github.com/aditya-sadavare/qrproject', 'main')
+
+                    def changedFiles = sh(script: "git diff --name-only HEAD~1 HEAD", returnStdout: true).trim().split('\n')
+                    build(changedFiles)
+
                     deploy()
                 }
             }
